@@ -4,11 +4,13 @@ using System.Net;
 using System.Net.Sockets;
 using System.Threading;
 
-namespace FlightSimulator.Communication
+namespace FlightSimulator.Models
 {
     class Commands
     {
         private TcpClient client;
+
+
         private BinaryWriter writer;
 
         public void Connect(string ip, int port)

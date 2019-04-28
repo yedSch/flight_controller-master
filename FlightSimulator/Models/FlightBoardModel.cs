@@ -3,7 +3,7 @@ using System.Threading;
 using System.ComponentModel;
 using System.Threading.Tasks;
 using FlightSimulator.ViewModels;
-using FlightSimulator.Communication;
+using FlightSimulator.Models;
 
 namespace FlightSimulator.Models
 {
@@ -18,9 +18,11 @@ namespace FlightSimulator.Models
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
-
+    
         public double Lon
         {
+            // setting longtitude function
+
             get
             {
                 return this.lon;
@@ -33,6 +35,7 @@ namespace FlightSimulator.Models
 
         public double Lat
         {
+            // setting latitude function
             get
             {
                 return this.lat;

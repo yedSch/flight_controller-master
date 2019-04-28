@@ -2,7 +2,7 @@
 using System.Windows.Media;
 using System.Threading.Tasks;
 using FlightSimulator.ViewModels;
-using FlightSimulator.Communication;
+using FlightSimulator.Models;
 
 namespace FlightSimulator.Models
 {

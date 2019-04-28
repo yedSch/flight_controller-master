@@ -3,7 +3,6 @@ using System.Threading;
 using System.Windows.Input;
 using System.ComponentModel;
 using FlightSimulator.Models;
-using FlightSimulator.Communication;
 using FlightSimulator.Views.Windows;
 
 namespace FlightSimulator.ViewModels
@@ -16,6 +15,7 @@ namespace FlightSimulator.ViewModels
 
         public FlightBoardViewModel()
         {
+            //connect between flightboard and changes 
             this.isConnected = false;
             this.model = new FlightBoardModel();
             this.model.PropertyChanged += M_PropertyChanged;
@@ -30,6 +30,7 @@ namespace FlightSimulator.ViewModels
 
         private void M_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
+            //change settings with notifyer. 
             if (e.PropertyName.Equals("Lat"))
             {
                 this.NotifyPropertyChanged("Lat");
@@ -42,6 +43,8 @@ namespace FlightSimulator.ViewModels
 
         public double Lon
         {
+            //longtitude getter and setter. 
+
             get
             {
                 return this.model.Lon;
@@ -53,6 +56,7 @@ namespace FlightSimulator.ViewModels
 
         public double Lat
         {
+            //latitude getter and setter. 
             get
             {
                 return this.model.Lat;
@@ -66,6 +70,7 @@ namespace FlightSimulator.ViewModels
 
         public ICommand SettingsCommand
         {
+            //check if button is clicked. 
             get
             {
                 return settingsCommand ?? (settingsCommand 
@@ -76,10 +81,12 @@ namespace FlightSimulator.ViewModels
         public void SettingsOnClick()
         {
             this.settings = new Settings();
+
             this.settings.ShowDialog();     
         }
         
         private ICommand connectCommand;
+
 
         public ICommand ConnectCommand {
             get
@@ -91,20 +98,24 @@ namespace FlightSimulator.ViewModels
 
         public void ConnectOnClick()
         {
-            // avoid two connections
+            //check if connection is single. 
             if (!this.isConnected)
             {
                 this.isConnected = true;
 
-                // start server, listen to plane by port
+                // port listener
                 new Thread(delegate () {
+
                     Info.Instance.Connect(ApplicationSettingsModel.Instance.FlightInfoPort);
+                    //info includes data for flight, including port. 
                     this.model.Read();
                 }).Start();
 
-                // start client, connect plane by ip and port
+                // connect plane by ip and port
                 new Thread(delegate () {
+                    //connect IP
                     Commands.Instance.Connect(ApplicationSettingsModel.Instance.FlightServerIP, 
+
                         ApplicationSettingsModel.Instance.FlightCommandPort);
                 }).Start();
             }
