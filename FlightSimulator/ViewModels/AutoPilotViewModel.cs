@@ -8,12 +8,14 @@ namespace FlightSimulator.ViewModels
     class AutoPilotViewModel : INotifyPropertyChanged
     {
         private AutoPilotModel model;
+
         private Brush background;
         private string commands;
 
         public AutoPilotViewModel()
         {
             this.model = new AutoPilotModel();
+
             this.background = Brushes.LightPink;
 
             // 2 commands that written as default
